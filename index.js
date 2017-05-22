@@ -7,8 +7,9 @@ const app = new Koa();
 var bodyParser = require('koa-bodyparser');
 app.use(bodyParser());
 
-require('./router/main')
 const Router = require('./router/Router')
+require('./router/main')
+
 app
     .use(Router.routes())
     .use(Router.allowedMethods());
