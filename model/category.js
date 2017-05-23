@@ -18,6 +18,9 @@ var Category = sequelize.define('category', {
     },
     img: {
         type: Sequelize.STRING
+    },
+    description: {
+        type: Sequelize.INTEGER,
     }
 }, {
     freezeTableName: true

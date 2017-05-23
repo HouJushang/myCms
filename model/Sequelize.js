@@ -10,6 +10,7 @@ var sequelize = new Sequelize(config.database, config.username, config.password,
         charset: 'utf8',
         collate: 'utf8_general_ci',
     },
+    timezone: '+08:00',
     pool: {
         max: 5,
         min: 0,

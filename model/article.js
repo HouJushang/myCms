@@ -10,6 +10,9 @@ var Article = sequelize.define('article', {
     author: {
         type: Sequelize.STRING
     },
+    articleUrl: {
+        type: Sequelize.STRING
+    },
     keywords: {
         type: Sequelize.TEXT
     },
@@ -21,13 +24,19 @@ var Article = sequelize.define('article', {
     },
     categoryId: {
         type: Sequelize.INTEGER,
-        default: 0
+        defaultValue: 0
     },
     addtime: {
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
+        defaultValue: new Date()
     },
     updatetime: {
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
+        defaultValue: new Date()
+    },
+    status: {
+        type: Sequelize.INTEGER,
+        defaultValue: 0 // 0 未审核 1 审核通过（发布）2 发布
     }
 }, {
     freezeTableName: true

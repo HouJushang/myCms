@@ -15,7 +15,7 @@ Router.post('login', '/login',async function (ctx, next) {
     } else {
         responseData = {
             code: 1,
-            data: '用户名或者密码错误',
+            message: '用户名或者密码错误',
         }
     }
     ctx.body = responseData

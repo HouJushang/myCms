@@ -6,7 +6,8 @@ const articleQuery = require('../query/article')
 Router.post('addArticle', '/article/add', async function (ctx, next) {
     const bodyData = ctx.request.body
     const addStatus = await articleQuery.add(bodyData)
-    if (addStatus) {
+    if (addStatus.id) {
+
         ctx.body = {
             code: 0,
             message: '添加成功'
