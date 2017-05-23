@@ -3,18 +3,14 @@
  */
 const Sequelize = require('sequelize')
 const sequelize = require('./Sequelize')
-var User = sequelize.define('user', {
-    username: {
+var Tag = sequelize.define('tag', {
+    name: {
         type: Sequelize.STRING
     },
-    password: {
-        type: Sequelize.STRING
-    },
-    roleid: {
-        type: Sequelize.INTEGER,
-        default: 0
+    number: {
+        type: Sequelize.INTEGER
     }
 }, {
     freezeTableName: true
 });
-module.exports = User
+module.exports = Tag

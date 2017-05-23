@@ -4,6 +4,10 @@
 const Koa = require('koa');
 const app = new Koa();
 
+const session = require('koa-session');
+app.keys = ['houjushangssecret'];
+app.use(session(app))
+
 var bodyParser = require('koa-bodyparser');
 app.use(bodyParser());
 

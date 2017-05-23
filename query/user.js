@@ -8,10 +8,15 @@ function count(where){
     })
 }
 function add(data){
-    console.log(data)
     return userModel.create(data)
+}
+function findOne(data){
+    return userModel.findOne({
+        where: data
+    })
 }
 module.exports = {
     count,
-    add
+    add,
+    findOne,
 }
