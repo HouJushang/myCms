@@ -11,7 +11,8 @@ var Article = sequelize.define('article', {
         type: Sequelize.STRING
     },
     articleUrl: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        defaultValue: 0
     },
     keywords: {
         type: Sequelize.TEXT

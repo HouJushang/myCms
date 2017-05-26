@@ -1,5 +1,5 @@
 module.exports = {
     database: 'mycms',
     username: 'root',
-    password: '123123'
+    password: '1116761886'
 }

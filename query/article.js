@@ -15,9 +15,10 @@ function findOne(data){
         where: data
     })
 }
-function findAndCountAll() {
+function findAndCountAll(data) {
     return articleModel.findAndCountAll({
-
+        limit: Number(data.limit),
+        offset: Number(data.offset)
     })
 }
 module.exports = {
