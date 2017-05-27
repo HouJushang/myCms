@@ -5,30 +5,27 @@ const Router = require('./Router')
 const dHtml = require('../common/downloadHtml')
 const cheerio = require('cheerio')
 const tmpArticleModel = require('../model/tmparticle')
-//
-// function openLink(urlLink) {
-//     //放到采集过得数组中
-//     allUrl.push(urlLink);
-//
-//     let htmlString = dHtml(urlLink)
-//     let $ = cheerio.load(htmlString);
-//
-//     $('a').each(function (idx, element) {
-//         if (element.attribs.href) {
-//             var newUrl = url.resolve(baseUrl, element.attribs.href);
-//             var index = newUrl.indexOf(baseUrl);
-//
-//             //判断连接是否同一域 和 是否已经打开过
-//             if (index >= 0 && allUrl.indexOf(newUrl) == -1) {
-//                 openLink(newUrl);
-//             }
-//         }
-//     })
-// }
-function decodeUnicode(str) {
-    str = str.replace(/\\/g, "%");
-    return unescape(str);
+
+function openLink(urlLink) {
+    //放到采集过得数组中
+    allUrl.push(urlLink);
+
+    let htmlString = dHtml(urlLink)
+    let $ = cheerio.load(htmlString);
+
+    $('a').each(function (idx, element) {
+        if (element.attribs.href) {
+            var newUrl = url.resolve(baseUrl, element.attribs.href);
+            var index = newUrl.indexOf(baseUrl);
+
+            //判断连接是否同一域 和 是否已经打开过
+            if (index >= 0 && allUrl.indexOf(newUrl) == -1) {
+                openLink(newUrl);
+            }
+        }
+    })
 }
+
 /**
  * @param url
  * @param contentSelect
@@ -38,28 +35,73 @@ function decodeUnicode(str) {
 Router.post('sprider', '/sprider',async function (ctx, next) {
     const bodyData = ctx.request.body;
 
-    let htmlString = await dHtml(bodyData.url)
-    let $ = cheerio.load(htmlString,  {decodeEntities: false})
-    let articleKeyWords = $("meta[name='keywords']").attr("content");
-    let articleDes = $("meta[name='description']").attr("content");
+    let awaitUrlArray = []
+    let succUrlArry = []
 
-    let articleTitle = $(bodyData.h1Select).text()
-    let articleFrom = bodyData.from
-    let articleContent = decodeUnicode($(bodyData.contentSelect).html())
+    let ingUrlNum = 0
 
-    let addStatus = tmpArticleModel.create({
-        title: articleTitle,
-        keywords: articleKeyWords,
-        description: articleDes,
-        author: 'hou',
-        content: articleContent,
-        fromurl: bodyData.url,
-        from: articleFrom
-    })
-    if (addStatus) {
-        ctx.body = {
-            code: 1,
-            message: '添加成功'
+    async function openLink() {
+        if (!awaitUrlArray.length > 0) {
+            return
+        }
+
+        url = awaitUrlArray.shift()
+
+        if(succUrlArry.indexOf(url) > 0){
+            return
+        }
+
+        if(ingUrlNum > 200){
+            return
+        }else{
+            while (ingUrlNum <= 200 && awaitUrlArray.length > 0) {
+                openLink()
+            }
+        }
+
+        ingUrlNum++
+        succUrlArry.push(url)
+        let htmlString = await dHtml(url)
+        let $ = cheerio.load(htmlString,  {decodeEntities: false})
+
+        $('a').each(function (idx, element) {
+            let newHref = element.attribs.href;
+            if (newHref.indexOf('http://www.baguaxing.com') === -1){
+                newHref = 'http://www.baguaxing.com' + newHref
+            }
+            if (succUrlArry.indexOf(newHref) === -1) {
+                awaitUrlArray.push(newHref)
+            }
+        })
+        let articleContent = $(bodyData.contentSelect).html()
+        if(!articleContent){
+            return
+        }
+        let articleKeyWords = $("meta[name='keywords']").attr("content");
+        let articleDes = $("meta[name='description']").attr("content");
+        let articleTitle = $(bodyData.h1Select).text()
+        let articleFrom = bodyData.from
+
+        let addStatus = tmpArticleModel.create({
+            title: articleTitle,
+            keywords: articleKeyWords,
+            description: articleDes,
+            author: 'hou',
+            content: articleContent,
+            fromurl: bodyData.url,
+            from: articleFrom
+        })
+        if (addStatus) {
+            ingUrlNum--
+            console.log('oK')
+            openLink()
+        } else {
+            ingUrlNum--
+            openLink()
         }
     }
+    awaitUrlArray.push(bodyData.url)
+    openLink()
+
+
 });
