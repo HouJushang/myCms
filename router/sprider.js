@@ -52,11 +52,10 @@ Router.post('sprider', '/sprider',async function (ctx, next) {
         }
 
         if(ingUrlNum > 200){
+            awaitUrlArray.push(url)
             return
         }else{
-            while (ingUrlNum <= 200 && awaitUrlArray.length > 0) {
-                openLink()
-            }
+            openLink()
         }
 
         ingUrlNum++
@@ -93,7 +92,7 @@ Router.post('sprider', '/sprider',async function (ctx, next) {
         })
         if (addStatus) {
             ingUrlNum--
-            console.log('oK')
+            console.log('oK', ingUrlNum)
             openLink()
         } else {
             ingUrlNum--
