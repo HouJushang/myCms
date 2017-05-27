@@ -10,6 +10,7 @@
   "license": "ISC",
   "dependencies": {
     "busboy": "^0.2.14",
+    "cheerio": "^0.22.0",
     "image-downloader": "^3.2.1",
     "koa": "^2.0.0-alpha.8",
     "koa-bodyparser": "^4.2.0",

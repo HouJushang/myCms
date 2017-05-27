@@ -1,9 +1,12 @@
 /**
+ * Created by hou on 2017/5/27.
+ */
+/**
  * Created by hou on 2017/5/22.
  */
 const Sequelize = require('sequelize')
 const sequelize = require('./Sequelize')
-var Article = sequelize.define('article', {
+var tmpArticle = sequelize.define('tmparticle', {
     title: {
         type: Sequelize.TEXT
     },
@@ -41,12 +44,8 @@ var Article = sequelize.define('article', {
     updatetime: {
         type: Sequelize.DATE,
         defaultValue: new Date()
-    },
-    status: {
-        type: Sequelize.INTEGER,
-        defaultValue: 0 // 0 未审核 1 审核通过（发布）2 发布
     }
 }, {
     freezeTableName: true
 });
-module.exports = Article
+module.exports = tmpArticle
