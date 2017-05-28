@@ -46,7 +46,6 @@ function uploadFile(ctx, filePath) {
     let mkdirResult = mkdirsSync( filePath )
 
     return new Promise((resolve, reject) => {
-        console.log('文件上传中...')
         let result = {
             success: false,
             formData: {},
