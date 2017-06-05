@@ -13,7 +13,7 @@ module.exports = function (url) {
         },function(err, red, body) {
             //请求到body
             if(err){
-                console.error('[ERROR]Collection' + err);
+                console.error('downloadHtml-' + err);
                 reject(err)
                 return;
             }

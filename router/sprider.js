@@ -37,7 +37,6 @@ Router.post('sprider', '/sprider',async function (ctx, next) {
 
     let awaitUrlArray = []
     let succUrlArry = []
-
     let ingUrlNum = 0
 
     async function openLink() {
@@ -51,12 +50,6 @@ Router.post('sprider', '/sprider',async function (ctx, next) {
             return
         }
 
-        if(ingUrlNum > 200){
-            awaitUrlArray.push(url)
-            return
-        }else{
-            openLink()
-        }
 
         ingUrlNum++
         succUrlArry.push(url)
@@ -65,11 +58,12 @@ Router.post('sprider', '/sprider',async function (ctx, next) {
 
         $('a').each(function (idx, element) {
             let newHref = element.attribs.href;
-            if (newHref.indexOf('http://www.baguaxing.com') === -1){
-                newHref = 'http://www.baguaxing.com' + newHref
+            if (newHref.indexOf(bodyData.baseUrl) === -1){
+                newHref = bodyData.baseUrl + newHref
             }
             if (succUrlArry.indexOf(newHref) === -1) {
                 awaitUrlArray.push(newHref)
+                openLink()
             }
         })
         let articleContent = $(bodyData.contentSelect).html()
@@ -90,9 +84,10 @@ Router.post('sprider', '/sprider',async function (ctx, next) {
             fromurl: bodyData.url,
             from: articleFrom
         })
+        console.log(addStatus)
         if (addStatus) {
             ingUrlNum--
-            console.log('oK', ingUrlNum)
+            console.log('oK')
             openLink()
         } else {
             ingUrlNum--
