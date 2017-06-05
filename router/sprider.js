@@ -50,7 +50,6 @@ Router.post('sprider', '/sprider',async function (ctx, next) {
             return
         }
 
-
         ingUrlNum++
         succUrlArry.push(url)
         let htmlString = await dHtml(url)
@@ -84,7 +83,6 @@ Router.post('sprider', '/sprider',async function (ctx, next) {
             fromurl: bodyData.url,
             from: articleFrom
         })
-        console.log(addStatus)
         if (addStatus) {
             ingUrlNum--
             console.log('oK')
@@ -96,6 +94,4 @@ Router.post('sprider', '/sprider',async function (ctx, next) {
     }
     awaitUrlArray.push(bodyData.url)
     openLink()
-
-
 });
