@@ -4,23 +4,56 @@
 const Sequelize = require('sequelize')
 const sequelize = require('./Sequelize')
 var Category = sequelize.define('category', {
-    title: {
+    name: {
         type: Sequelize.STRING
     },
-    template_index: {
+    articletype: {
+        type: Sequelize.INTEGER
+    },
+    parentid: {
+        type: Sequelize.INTEGER
+    },
+    folder: {
         type: Sequelize.STRING
     },
-    template_list: {
+    sortrank: {
+        type: Sequelize.INTEGER
+    },
+    showtype: {
+        type: Sequelize.INTEGER
+    },
+    bindhost: {
+        type: Sequelize.INTEGER
+    },
+    host: {
         type: Sequelize.STRING
     },
-    template_content: {
+    seotitle: {
         type: Sequelize.STRING
     },
-    img: {
+    keywords: {
         type: Sequelize.STRING
     },
     description: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.TEXT
+    },
+    tmpstyle: {
+        type: Sequelize.STRING
+    },
+    atricle_tmp: {
+        type: Sequelize.STRING
+    },
+    category_tmp: {
+        type: Sequelize.STRING
+    },
+    list_tmp: {
+        type: Sequelize.STRING
+    },
+    artrule: {
+        type: Sequelize.STRING
+    },
+    lisrule: {
+        type: Sequelize.STRING
     }
 }, {
     freezeTableName: true
