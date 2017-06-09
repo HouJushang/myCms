@@ -26,10 +26,6 @@ var tmpArticle = sequelize.define('tmparticle', {
     content: {
         type: Sequelize.TEXT
     },
-    categoryId: {
-        type: Sequelize.INTEGER,
-        defaultValue: 0
-    },
     from: {
         type: Sequelize.STRING,
         defaultValue: '未知'
@@ -44,6 +40,10 @@ var tmpArticle = sequelize.define('tmparticle', {
     updatetime: {
         type: Sequelize.DATE,
         defaultValue: new Date()
+    },
+    isure: {
+        type: Sequelize.INTEGER,
+        defaultValue: 0
     }
 }, {
     freezeTableName: true

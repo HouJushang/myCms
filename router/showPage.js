@@ -4,6 +4,6 @@
 const Router = require('./Router')
 Router.get('index', '/',async function (ctx, next) {
     await ctx.render('default/index', {
-        title: '1111'
+        title: '首页'
     });
 });

@@ -44,7 +44,7 @@ var Article = sequelize.define('article', {
     },
     status: {
         type: Sequelize.INTEGER,
-        defaultValue: 0 // 0 未审核 1 审核通过（发布）2 发布
+        defaultValue: 0 // 0 未审核 1 审核通过（发布）2 回收站
     }
 }, {
     freezeTableName: true
