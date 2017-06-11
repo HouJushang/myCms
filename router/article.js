@@ -2,6 +2,7 @@
  * Created by hou on 2017/5/23.
  */
 const Router = require('./Router')
+const articleModel = require('../model/article')
 const articleQuery = require('../query/article')
 Router.post('addArticle', '/addarticle', async function (ctx, next) {
     const bodyData = ctx.request.body
@@ -26,9 +27,10 @@ Router.post('addArticle', '/addarticle', async function (ctx, next) {
         }
     }
 })
-Router.get('article','/article', async function (ctx, next) {
-    const bodyData = ctx.request.query;
-    var findData = await articleQuery.findAndCountAll(bodyData)
+Router.post('article','/article', async function (ctx, next) {
+    const bodyData = ctx.request.body;
+    console.log(bodyData.where)
+    var findData = await articleModel.findAndCountAll(bodyData)
     ctx.body = {
         code: 0,
         data: findData

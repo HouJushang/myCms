@@ -6,28 +6,23 @@ const tmpArtModel = require('../model/tmparticle')
 const artModel = require('../model/article')
 Router.post('issue', '/issue',async function (ctx, next) {
     const bodyData = ctx.request.body;
-    const artdata = await tmpArtModel.findAll({
+    const artdata = await tmpArtModel.findOne({
         where: {
-            id: {
-                in: bodyData
-            }
+            id: bodyData.id
         }
     })
-    let addData = []
-    artdata.forEach(item => {
-        addData.push({
-            title: item.title,
-            author: 'hou',
-            keywords: item.keywords,
-            description: item.description,
-            content: item.content,
-            categoryId: 1,
-            from: item.from,
-            fromurl: item.fromurl,
-            status: 0
-        })
-    })
-    const addResult = await artModel.bulkCreate(addData)
+    addData = {
+        title: artdata.title,
+        author: 'hou',
+        keywords: artdata.keywords,
+        description: artdata.description,
+        content: artdata.content,
+        categoryId: 1,
+        from: artdata.from,
+        fromurl: artdata.fromurl,
+        status: 0
+    }
+    const addResult = await artModel.create(addData)
     ctx.body = {
         code: 0,
         data: addResult,

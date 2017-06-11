@@ -16,6 +16,9 @@ var Category = sequelize.define('category', {
     folder: {
         type: Sequelize.STRING
     },
+    caturl: {
+        type: Sequelize.STRING
+    },
     sortrank: {
         type: Sequelize.INTEGER
     },
@@ -36,9 +39,6 @@ var Category = sequelize.define('category', {
     },
     description: {
         type: Sequelize.TEXT
-    },
-    tmpstyle: {
-        type: Sequelize.STRING
     },
     atricle_tmp: {
         type: Sequelize.STRING

@@ -1,0 +1,9 @@
+const njk = require('nunjucks')
+const path = require('path')
+function render(tmp, tmpData) {
+    var tmpPath = path.join(__dirname, '../template/')
+    var env = new njk.Environment(new njk.FileSystemLoader(tmpPath));
+    var result = env.render(tmp, tmpData)
+    return result
+}
+module.exports = render

@@ -1,0 +1,18 @@
+{% extends "/Users/hou/personal/myCms/template/default/base.njk" %}
+
+{% block header %}
+    <a href="/">
+        <img src="static/logo.png" alt="111" title="首页logo">
+    </a>
+{% endblock %}
+{% block content %}
+    <ul>
+    {% for item in catData %}
+        <li><a href="{{ item.caturl }}">{{ item.name }}</a></li>
+    {% endfor %}
+    </ul>
+{% endblock %}
+{% block footer %}ww
+    网站备案： 111
+    合作联系： QQ: 354720334 微信：houjushang
+{% endblock %}

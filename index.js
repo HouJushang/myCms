@@ -8,7 +8,7 @@ const app = require('./bin/app')
 
 //template
 const views = require('koa-views');
-app.use(views(__dirname + '/template', { map: {html: 'nunjucks' }}));
+app.use(views(__dirname + '/template', { map: {njk: 'nunjucks' },extension: 'njk' }));
 
 //static
 const serve = require('koa-static');
