@@ -26,7 +26,14 @@ var Category = sequelize.define('category', {
         type: Sequelize.INTEGER
     },
     bindhost: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        set(val){
+            let newVal = val ? 1 : 0
+            this.setDataValue('bindhost', newVal);
+        },
+        get() {
+           return [false, true][this.getDataValue('bindhost')]
+        }
     },
     host: {
         type: Sequelize.STRING
