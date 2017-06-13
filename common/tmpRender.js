@@ -14,13 +14,22 @@ function render(tmp, tmpData, htmlPath, filename) {
     var env = new njk.Environment(new njk.FileSystemLoader(tmpPath));
     var result = env.render(tmp, tmpData)
     var htmlFolder = path.join(pubPath, htmlPath)
-    console.log(htmlFolder)
-    fs.createWriteStream(htmlPath)
-    fs.writeFile(htmlFolder, result, function(err) {
-        if(err) {
-            return 'fail';
+    var htmlFile = path.join(htmlFolder, filename)
+    try {
+        if(!fs.existsSync(htmlFolder)){
+            fs.mkdirSync(htmlFolder)
         }
-        return 'ok'
-    });
+        fs.writeFileSync(htmlFile, result);
+        return {
+            status: 1,
+            message: '成功'
+        }
+    } catch (err) {
+        return {
+            status: 0,
+            message: err
+        }
+    }
+
 }
 module.exports = render
